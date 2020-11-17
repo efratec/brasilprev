@@ -1,7 +1,7 @@
 package com.brasilprev.api.security.config;
 
 import com.brasilprev.api.security.filter.JwtAuthFilter;
-import com.brasilprev.api.service.JwtService;
+import com.brasilprev.api.security.service.JwtService;
 import com.brasilprev.api.service.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserSecurityService userSecurityService;
     private final JwtService jwtService;
+
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
     @Autowired
     public SecurityConfig(UserSecurityService userSecurityService, JwtService jwtService) {
@@ -48,15 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/api/customers/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("api/login/**").permitAll()
+                .antMatchers("/api/login/**").permitAll()
+                .antMatchers("/users/**").permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(STATELESS).and()
-                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter(),
+                        UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "swagger-resources/**", "/swagger-ui.html", "/webjars/**");
+        web.ignoring().mvcMatchers(AUTH_WHITELIST);
     }
 
 }

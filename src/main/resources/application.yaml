@@ -1,4 +1,3 @@
-
 server:
   port: ${PORT:8080}
 
@@ -21,9 +20,13 @@ spring:
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
 
+brasilprev:
+    swagger:
+    baseUrl: ${SWAGGER_BASE_URL:localhost:${server.port}}
+    apiInfo: REST API for Brasilprev Service Microservice
+    apiTitle: BrasilPrev Services
 
-#brasilprev:
-#  swagger:
-#    baseUrl: ${SWAGGER_BASE_URL:brasil-prev.herokuapp.com:${server.port}}
-#    apiInfo: REST API for Brasilprev Service Microservice
-#    apiTitle: Brasilprev Service
+security:
+  jwt:
+    expiry: 3000
+    key: ${JWT_KEY:abcde}

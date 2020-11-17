@@ -20,11 +20,11 @@ spring:
     username: postgres
     password: password
 
-#brasilprev:
-#  swagger:
-#    baseUrl: ${SWAGGER_BASE_URL:localhost:${server.port}}
-#    apiInfo: REST API for Brasilprev Service Microservice
-#      apiTitle: Brasilprev Service
+brasilprev:
+  swagger:
+    baseUrl: ${SWAGGER_BASE_URL:localhost:${server.port}}
+    apiInfo: REST API for Brasilprev Service Microservice
+    apiTitle: BrasilPrev Services
 
 security:
   jwt:

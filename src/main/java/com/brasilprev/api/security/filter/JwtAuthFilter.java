@@ -1,6 +1,6 @@
 package com.brasilprev.api.security.filter;
 
-import com.brasilprev.api.service.JwtService;
+import com.brasilprev.api.security.service.JwtService;
 import com.brasilprev.api.service.UserSecurityService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,13 +32,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (authorization != null && authorization.startsWith("Bearer")) {
             String token = authorization.split(" ")[1];
-            autenticar(httpServletRequest, token);
+            authenticate(httpServletRequest, token);
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    private void autenticar(HttpServletRequest httpServletRequest, String token) {
+    private void authenticate(HttpServletRequest httpServletRequest, String token) {
         if (jwtService.isValidToken(token)) {
             String userLogin = jwtService.getUserLogin(token);
             UserDetails user = userService.loadUserByUsername(userLogin);

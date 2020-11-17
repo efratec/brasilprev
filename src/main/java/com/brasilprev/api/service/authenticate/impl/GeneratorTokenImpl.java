@@ -30,6 +30,7 @@ public class GeneratorTokenImpl implements GeneratorToken {
         log.info(" Generating token for the user, {}", user.getName());
 
         Claims claims = Jwts.claims().setSubject(user.getEmail());
+        claims.put("id", user.getIdUser());
         claims.put("name", user.getName());
         claims.put("auth", user.getRole());
 
@@ -38,6 +39,10 @@ public class GeneratorTokenImpl implements GeneratorToken {
             .signWith(SignatureAlgorithm.HS512, secret)
             .setExpiration(tomorrow())
             .compact();
+    }
+
+    private Claims getClaims(String token) {
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     private static Date tomorrow() {

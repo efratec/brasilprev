@@ -34,7 +34,7 @@ public class CustomerServiceTests {
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         customerService = new CustomerServiceImpl(customerRepository);
         givenValidCustomerDTO();
         customer = aCustomerMariaDaSilva();
