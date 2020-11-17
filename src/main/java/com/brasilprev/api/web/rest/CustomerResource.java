@@ -67,7 +67,7 @@ public class CustomerResource {
             @ApiResponse(code = 500, message = STATUS_500_INTERNAL_SERVER_ERROR) })
     @ApiOperation(value = "Delete Customers", authorizations = @Authorization(value = "JWT"))
     @DeleteMapping("{id}")
-    public void deleteBeer(@PathVariable Long id) {
+    public void deleteCustomer(@PathVariable Long id) {
         customerService.delete(id);
     }
 

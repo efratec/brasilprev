@@ -5,12 +5,10 @@ import com.brasilprev.api.exception.customer.CustomerAlreadyExistsException;
 import com.brasilprev.api.model.Customer;
 import com.brasilprev.api.repository.CustomerRepository;
 import com.brasilprev.api.service.CustomerService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static com.brasilprev.api.model.builder.CustomerBuilder.aCustomer;
